@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Articles</title>
+  </head>
+  <body>
+<div class="outer">
+<h2> CREATE A NEW ARTICLE HERE!</h2>
+  <form action="/articles/new" method="POST">
+<div class ="labels">
+    <label>
+      AUTHOR:
+      <input type="text" name="author" placeholder ="Add author's name here"/>
+    </label>
+<br />
+<br />
+    <label>
+      DATE:
+      <input type="text" name="date" placeholder ="what is today's date?"/>
+    </label>
+<br />
+<br />
+    <label>
+      TITLE:
+      <input type="text" name="title" placeholder ="Title of your article goes here"/>
+    </label>
+    <br />
+    <br />
+        <label>
+      CONTENT:
+      <br />
+<textarea rows="25" cols="75" type="text" name="content" placeholder ="Your article should contain no more than 1,600 words">
+</textarea>
+    </label>
+</div>
+    <button class = "mybutton">SUBMIT</button>
+  </form>
+       <a href="/"><button class = "mybutton">HOME</button> </a>
+  </div>
+</body>
+</html>

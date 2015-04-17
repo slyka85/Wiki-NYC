@@ -7,7 +7,7 @@ var db = new sqlite3.Database('./database.db');
 //////////////////////////////////////// boiler plate
 
 
-db.run("CREATE TABLE articles (id integer primary key, category text, title text, content text, date_created varchar, image varchar, authors_id integer);");
+// db.run("CREATE TABLE articles (id integer primary key, category text, title text, content text, date_created varchar, image varchar, authors_id integer);");
 
-// db.run("CREATE TABLE authors (id integer primary key, username varchar, first_name varchar, last_name varchar, email varchar);");
+db.run("CREATE TABLE authors (id integer primary key, username varchar, first_name varchar, last_name varchar, email varchar, profile_image varchar);");
 console.log("Tables created!");

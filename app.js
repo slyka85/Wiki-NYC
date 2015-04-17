@@ -23,21 +23,18 @@ app.use(methodOverride('_method'));
 //                    WELCOME PAGE                 //
 ////////////////////////////////////////////////////
 
-//Welcome page
 //reading the index HTML template
 app.get('/', function(req, res) {
 
-
+	//sending new authors to a dropdown menu
 	var template = fs.readFileSync('index.html', 'utf8');
 	db.all('SELECT * FROM authors;', function(err, authors) {
 		var html = Mustache.render(template, {
-			allAuthors: authors
-		});
+			allAuthors: authors}); //end of mustache
 		//res.send("ok");
-			res.send(html);
-	});
-
-});
+		res.send(html);
+	}); //end of db all
+}); //end of app get
 
 ////////////////////////////////////////////////////
 //                    AUTHORS STUFF              //
@@ -46,7 +43,7 @@ app.get('/', function(req, res) {
 //creating new author
 app.post('/authors', function(req, res) {
 	console.log(req.body);
-	db.run("INSERT INTO authors (username, first_name, last_name, email) VALUES ('" + req.body.username + "','" + req.body.first_name + "','" + req.body.last_name + "','" + req.body.email + "')");
+	db.run("INSERT INTO authors (username, first_name, last_name, email, profile_image) VALUES ('" + req.body.username + "','" + req.body.first_name + "','" + req.body.last_name + "','" + req.body.email + "','" + req.body.profile_image + "')");
 	//res.send('author added');
 	console.log('authors info sent to database');
 	res.redirect("/authors");
@@ -68,6 +65,7 @@ app.get('/authors', function(req, res) {
 
 
 //if user wants to see authors profile with articles through the drop menu
+
 // app.get('/authors', function(req, res) {
 // 	var id = req.params.id;
 // 	var template = fs.readFileSync('./authors.html', 'utf8');
@@ -128,7 +126,7 @@ app.delete('/authors/:id', function(req, res) {
 app.put('/authors/:id/', function(req, res) {
 	var id = req.params.id;
 	var authorInfo = req.body;
-	db.run("UPDATE authors SET username = '" + authorInfo.username + "',first_name = '" + authorInfo.first_name + "', last_name = '" + authorInfo.last_name + "', email = '" + authorInfo.email + "' WHERE id = " + id + ";");
+	db.run("UPDATE authors SET username = '" + authorInfo.username + "',first_name = '" + authorInfo.first_name + "', last_name = '" + authorInfo.last_name + "', email = '" + authorInfo.email + "', profile_image = '" + authorInfo.profile_image + "' WHERE id = " + id + ";");
 	res.redirect("/authors");
 });
 
@@ -138,16 +136,31 @@ app.put('/authors/:id/', function(req, res) {
 
 //reading the template from newarticle to create an article
 app.get('/articles/new', function(req, res) {
-	res.send(fs.readFileSync('./newarticle.html', 'utf8'));
-});
+		var template = fs.readFileSync('newarticle.html', 'utf8');
+	//res.send(template);
+	//sending new authors to a dropdown menu
+
+	db.all('SELECT * FROM authors;', function(err, authors) {
+		var html = Mustache.render(template, {
+			allAuthors: authors}); //end of mustache
+		//res.send("ok");
+		res.send(html);
+	}); //end of db all
+}); //end of app get
+//});
+
+
 //Create a new article
 app.post('/articles', function(req, res) {
-	console.log(req.body);
-	var authorNameSearchedInArticles = "SELECT ";
-	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + req.body.category + "','" + req.body.title + "','" + req.body.content + "','" + req.body.date_created + "','" + req.body.image + "'2)");
+	// console.log(req.body);
+	var category = req.body.categories;
+	var author = req.body.authors;
+	console.log(author);
+	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + req.body.content + "','" + req.body.date_created + "','" + req.body.image + "','" + author+ "')");
 	//res.send('article added');
 	console.log('article info sent to database');
 	res.redirect("/articles");
+
 });
 
 //view all articles. reading a template and mustaching articles into html

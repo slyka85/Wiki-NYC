@@ -8,10 +8,15 @@
     <h3> Click on the author's link to edit or delete a profile </h3> 
     <ul>
     {{#allAuthors}}
-      <li><a href="/authors/{{id}}">{{id}} - {{username}}</a></li>
+      <li><a href="/authors/{{id}}">{{id}} - {{username}} </a></li>
+      <img src='{{profile_image}}'
+      <br />
     {{/allAuthors}}
   </ul>
   </div>
+  <br />
+           <a href="/"><button class = "mybutton">CREATE NEW PROFILE </button></a>
+           <br />
          <a href="/"><button class = "mybutton">HOME</button> </a>
 
 

@@ -11,21 +11,34 @@
 <div class ="labels">
     <label>
       AUTHOR:
-      <input type="text" name="authors_id" placeholder ="Add author's name here"/>
-    </label>
-<br />
-<br />
-    <label>
-      DATE:
-      <input type="text" name="date_created" placeholder ="what is today's date?"/>
+        <form action="/authors/:id" method="POST">
+<select name = "authors">
+  <option value="choose">WHO ARE YOU?</option>
+ {{#allAuthors}}
+  <option value="{{id}}">{{username}}</option>
+  {{/allAuthors}}
+</select>
     </label>
 <br />
 <br />
     <label>
       CATEGORY:
-      <input type="text" name="category" placeholder ="Category"/>
+<select name = "categories">
+  <option value="choose">SELECT A CATEGORY</option>
+  <option value="leisure">Leisure</option>
+  <option value="food">Food</option>
+  <option value="lifehacks">Life Hacks</option>
+  <option value="entertainment">Entertainment</option>
+</select> 
     </label>
+        <label>
+        <br />
     <br />
+      DATE:
+      <input type="text" name="date_created" placeholder ="what is today's date?"/>
+    </label>
+<br />
+
 <br />
     <label>
       TITLE:

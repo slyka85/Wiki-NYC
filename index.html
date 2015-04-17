@@ -65,14 +65,15 @@
 </select>     <button class = "mybutton">VIEW by Category</button></p></li>
 
 <li> <p> View all articles of a particular author
-  <form action="/authors/:id" method="GET">
+
+  <form action="/authors/:id" method="POST">
 <select name = "authors">
   <option value="choose">Choose an author</option>
-  <option value="candyturkey85">candyturkey85</option>
-  <option value="ankleplugged67">ankleplugged67</option>
-  <option value="lawfulsnot">lawfulsnot</option>
-  <option value="trickbellied">trickbellied</option>
+ {{#allAuthors}}
+  <option value="{{id}}">{{username}}</option>
+  {{/allAuthors}}
 </select>
+
 <button class = "mybutton">VIEW by Author</button></p></li>
 </form>
 </ul>

@@ -8,13 +8,24 @@
     <h3> Click on the article's link to edit or delete an article </h3> 
     <ul>
     {{#allArticles}}
-      <li><a href="/articles/{{id}}">{{id}} - {{title}}</a></li>
+      <li><a href="/articles/{{id}}">{{id}} - {{title}}  </a></li>
+            <br /> 
+      created by: {{authors_id}}
+      <br />
+      last updated on: {{date_created}}
+      <br />
+      <br />
+
+      {{content}}
+      <br />
+      <img src='{{image}}'>
     {{/allArticles}}
   </ul>
   </div>
-         <a href="/"><button class = "mybutton">HOME</button> </a>
-
-
+  <a href="/articles/new"><button class = "mybutton">CREATE ANOTHER ARTICLE</button></a>
+  <br />
+  <br />
+  <a href="/"><button class = "mybutton">HOME</button> </a>
 </body>
 </html>
 

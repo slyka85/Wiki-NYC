@@ -11,10 +11,11 @@ var methodOverride = require('method-override');
 var db = new sqlite3.Database('./database.db');
 var app = express();
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 app.use(methodOverride('_method'));
 //////////////////////////////////////// boiler plate
-
 
 
 
@@ -25,8 +26,19 @@ app.use(methodOverride('_method'));
 //Welcome page
 //reading the index HTML template
 app.get('/', function(req, res) {
-	res.send(fs.readFileSync('./index.html', 'utf8'));
+
+
+	var template = fs.readFileSync('index.html', 'utf8');
+	db.all('SELECT * FROM authors;', function(err, authors) {
+		var html = Mustache.render(template, {
+			allAuthors: authors
+		});
+		//res.send("ok");
+			res.send(html);
+	});
+
 });
+
 ////////////////////////////////////////////////////
 //                    AUTHORS STUFF              //
 //////////////////////////////////////////////////
@@ -34,9 +46,9 @@ app.get('/', function(req, res) {
 //creating new author
 app.post('/authors', function(req, res) {
 	console.log(req.body);
-	db.run("INSERT INTO authors (username, first_name, last_name, email) VALUES ('" + req.body.username + "','" + req.body.first_name + "','" + req.body.last_name + "','" + req.body.email +"')");
+	db.run("INSERT INTO authors (username, first_name, last_name, email) VALUES ('" + req.body.username + "','" + req.body.first_name + "','" + req.body.last_name + "','" + req.body.email + "')");
 	//res.send('author added');
-		console.log('authors info sent to database');
+	console.log('authors info sent to database');
 	res.redirect("/authors");
 });
 
@@ -52,6 +64,8 @@ app.get('/authors', function(req, res) {
 		res.send(html);
 	});
 });
+
+
 
 //if user wants to see authors profile with articles through the drop menu
 // app.get('/authors', function(req, res) {
@@ -129,9 +143,10 @@ app.get('/articles/new', function(req, res) {
 //Create a new article
 app.post('/articles', function(req, res) {
 	console.log(req.body);
-	db.run("INSERT INTO articles (category, title, content, date_created) VALUES ('" + req.body.category + "','" + req.body.title + "','" + req.body.content + "','" + req.body.date_created +"')");
+	var authorNameSearchedInArticles = "SELECT ";
+	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + req.body.category + "','" + req.body.title + "','" + req.body.content + "','" + req.body.date_created + "','" + req.body.image + "'2)");
 	//res.send('article added');
-		console.log('article info sent to database');
+	console.log('article info sent to database');
 	res.redirect("/articles");
 });
 
@@ -156,7 +171,7 @@ app.get('/articles/:id', function(req, res) {
 		fs.readFile('./articlePage.html', 'utf8', function(err, html) {
 
 			var renderedHTML = Mustache.render(html, article[0]);
-						console.log(article);
+			console.log(article);
 			res.send(renderedHTML);
 		});
 	});
@@ -170,10 +185,9 @@ app.delete('/articles/:id', function(req, res) {
 app.put('/articles/:id/', function(req, res) {
 	var id = req.params.id;
 	var articleInfo = req.body;
-	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + articleInfo.content + "', date_created = '" + articleInfo.date_created + "', authors_id = '" + articleInfo.authors_id+ "' WHERE id = " + id + ";");
+	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + articleInfo.content + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
 	res.redirect("/articles");
 });
-
 
 
 

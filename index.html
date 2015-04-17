@@ -56,7 +56,7 @@
 <p> View all articles and/or contribute to the existing ones or delete if you find it outdated or misleading <a href="/articles">here</a> </p>
 </li>
 <li> <p> View all articles of a particular category
-<select>
+<select name = "categories">
   <option value="choose">Choose a category</option>
   <option value="leisure">Leisure</option>
   <option value="food">Food</option>
@@ -65,13 +65,16 @@
 </select>     <button class = "mybutton">VIEW by Category</button></p></li>
 
 <li> <p> View all articles of a particular author
-<select>
+  <form action="/authors/:id" method="GET">
+<select name = "authors">
   <option value="choose">Choose an author</option>
   <option value="candyturkey85">candyturkey85</option>
   <option value="ankleplugged67">ankleplugged67</option>
   <option value="lawfulsnot">lawfulsnot</option>
   <option value="trickbellied">trickbellied</option>
-</select>     <button class = "mybutton">VIEW by Author</button></p></li>
+</select>
+<button class = "mybutton">VIEW by Author</button></p></li>
+</form>
 </ul>
 </div>
 </body>

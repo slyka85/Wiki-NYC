@@ -1,1 +1,20 @@
-article posted
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Articles</title>
+  <body>
+  </div>
+    <h3> Click on the article's link to edit or delete an article </h3> 
+    <ul>
+    {{#allArticles}}
+      <li><a href="/articles/{{id}}">{{id}} - {{title}}</a></li>
+    {{/allArticles}}
+  </ul>
+  </div>
+         <a href="/"><button class = "mybutton">HOME</button> </a>
+
+
+</body>
+</html>
+

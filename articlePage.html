@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Article's Page</title>
+</head>
+<body>
+<div class="outer">
+<form method = "POST" action ="/articles/{{id}}?_method=PUT">
+<input type ="text" name = "category" value = "{{category}}"> <br />
+<input type ="text" name = "title" value = "{{title}}"> <br />
+<input type ="text" name = "content" value = "{{content}}"> <br />
+<input type ="text" name = "date_created" value = "{{date_created}}"> <br />
+<input type ="text" name = "authors_id" value = "{{authors_id}}"> <br />
+<br />
+<br />
+<button type = "submit" class="mybutton"> UPDATE ME!</button> <br /> <br />
+</form>
+<form method="POST" action="/articles/{{id}}?_method=DELETE">
+<button type ="submit" class="mybutton"> DELETE ME!</button>
+</form>
+<br />
+<a href="/articles"><button class = "mybutton">CANCEL</button> </a>
+  </div>
+</body>
+</html>

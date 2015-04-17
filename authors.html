@@ -1,0 +1,19 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Authors</title>
+  <body>
+  </div>
+    <h3> Click on the author's link to edit or delete a profile </h3> 
+    <ul>
+    {{#allAuthors}}
+      <li><a href="/authors/{{id}}">{{id}} - {{username}} - {{first_name}} - {{last_name}} - {{email}}</a></li>
+    {{/allAuthors}}
+  </ul>
+  </div>
+         <a href="/"><button class = "mybutton">HOME</button> </a>
+
+
+</body>
+</html>

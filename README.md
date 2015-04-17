@@ -46,7 +46,7 @@ The user will be redirected to "/authors/:ID"
 ##ERD
 ![articles](http://i.imgur.com/EtT68mj.png)
 
-![authors](http://i.imgur.com/HLwEOsz.png)
+![authors](http://i.imgur.com/SclykLa.png)
 
 
 Pending features:

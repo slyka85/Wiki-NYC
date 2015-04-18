@@ -4,86 +4,74 @@
 <head>
   <meta charset="UTF-8">
   <title>WIKI NYC</title>
+  <link href="styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<div class="outer">
+<div class="welcome">
 <h2> WELCOME TO NY CITY GUIDE WIKI!</h2>
 <p> This is a place for sharing ideas with tourists who come to visit NYC! </p>
 <br />
 <br />
 <br />
-<ul>
+</div>
+<div class="register">
 <h3> PLEASE REGISTER </h3> 
-<div class="outer">
   <form action="/authors" method="POST">
 <div class ="labels">
-    <label>
-      USERNAME:
+    <label>USERNAME:
       <input type="text" name="username" placeholder =" type your username"/>
-      <br />
-      <br />
-    </label>
-    <label>
-      FIRST NAME:
+      <br /><br /></label>
+    <label>FIRST NAME:
       <input type="text" name="first_name" placeholder =" type your first name"/>
-    </label>
-<br />
-<br />
-    <label>
-      LAST NAME:
+      <br /><br /></label>
+    <label>LAST NAME:
       <input type="text" name="last_name" placeholder =" type your last name"/>
-    </label>
-<br />
-<br />
-    <label>
-      EMAIL ADDRESS:
+      <br /><br /></label>
+    <label>EMAIL ADDRESS:
       <input type="text" name="email" placeholder =" type your email"/>
-      </label>
-      <label>
-      <br />
-      <br />
-      PROFILE IMAGE:
-      <input type="text" name="profile_image" placeholder =" paste link to your profile image"/>
-    </label>
-</div>
-<br /> 
+      <br /><br /></label>
+    <label>PROFILE IMAGE:
+      <input type="text" name="profile_image" placeholder =" paste link to an image"/> 
+      <br /><br /></label>
     <button class = "mybutton">REGISTER</button>
+    </div>
+    </div>
     </form>
+
+<div class ="options">
+<br /><br />
+<ul>
     <br />
-    <a href="/authors"><button class = "viewAuthors">VIEW ALL AUTHORS PROFILES</button></a>
-
-<br /><br />
-<br /><br />
-<br /><br />
-
-<li>
-<p> You can create an article <a href="/articles/new">here</a> </p> </li>
-<li>
-<p> View all articles and/or contribute to the existing ones or delete if you find it outdated or misleading <a href="/articles">here</a> </p>
+<a href="/authors"><button class = "viewAuthors">VIEW ALL AUTHORS PROFILES</button></a>
+<a href="/articles/new"><button class = "newarticle">CREATE AN ARTICLE</button></a>
+<br />
+<li> <p> View all articles </p> 
+<a href="/articles"><button class = "viewArticles">VIEW ALL ARTICLES </button></a>
 </li>
-<li> <p> View all articles of a particular category
+
+<li> <p> View all articles of a particular category  </p> 
+   <form action="/articles" method="GET">
 <select name = "categories">
   <option value="choose">Choose a category</option>
   <option value="leisure">Leisure</option>
   <option value="food">Food</option>
   <option value="lifehacks">Life Hacks</option>
   <option value="entertainment">Entertainment</option>
-</select>     <button class = "mybutton">VIEW by Category</button></p></li>
+</select>
+<button class = "mybutton">ARTICLES by Category</button></p></li>
+<li> <p> View all articles of a particular author </p>
 
-<li> <p> View all articles of a particular author
-
-  <form action="/authors/:id" method="POST">
 <select name = "authors">
   <option value="choose">Choose an author</option>
  {{#allAuthors}}
   <option value="{{id}}">{{username}}</option>
   {{/allAuthors}}
-</select>
-
-<button class = "mybutton">VIEW by Author</button></p></li>
+</select> 
+<button class = "mybutton">ARTICLES by Author</button></p></li>
 </form>
 </ul>
+</li>
 </div>
 </body>
 </html>

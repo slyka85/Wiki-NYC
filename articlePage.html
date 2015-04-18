@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Article's Page</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="outer">
 <form method = "POST" action ="/articles/{{id}}?_method=PUT">
 Author <br />
-<input type ="text" name = "authors_id" value = "{{authors_id}}"> <br />
+<input type ="text" name = "authors_id" value = "{{authors_id}}"> <br /><br />
 Date created <br />
-<input type ="text" name = "date_created" value = "{{date_created}}"> <br />
+<input type ="text" name = "date_created" value = "{{date_created}}"> <br /><br />
 Category <br />
-<input type ="text" name = "category" value = "{{category}}"> <br />
+<input type ="text" name = "category" value = "{{category}}"> <br /><br />
 Title <br />
-<input type ="text" name = "title" value = "{{title}}"> <br />
+<input type ="text" name = "title" value = "{{title}}"> <br /><br />
 Content <br />
-<input type ="text" name = "content" value = "{{content}}"> <br />
+<textarea type ="text" rows="25" cols="75" name = "content"> "{{content}}"</textarea> <br /><br />
 <br />
 Image link <br />
-<input type ="text" name = "image" value = "{{image}}"> <br />
+<input type ="text" name = "image" value = "{{image}}"> <br /><br />
 <br />
 <br />
 <button type = "submit" class="mybutton"> UPDATE ME!</button> <br /> <br />

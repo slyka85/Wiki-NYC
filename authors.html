@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>All Authors</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
   <body>
   </div>
     <h3> Click on the author's link to edit or delete a profile </h3> 
     <ul>
     {{#allAuthors}}
       <li><a href="/authors/{{id}}">{{id}} - {{username}} </a></li>
-      <img src='{{profile_image}}'
+      <img class ="profiles" src='{{profile_image}}'
       <br />
     {{/allAuthors}}
   </ul>

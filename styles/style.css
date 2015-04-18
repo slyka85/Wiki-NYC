@@ -1,0 +1,22 @@
+body {
+	background-image: url("http://i.imgur.com/sUKO0hk.jpg");
+	background-size: 100% 100%;
+	background-color: lightgrey;
+   background-repeat: repeat-x;
+}
+
+.profiles{
+	width: 220px;
+	height: 250px
+}
+.articles {
+	width: 450px;
+	height: 300px
+}
+.register{
+    border-radius: 25px;
+    background: lightgrey;
+    padding: 20px; 
+    width: 300px;
+    height: 300px; 
+}

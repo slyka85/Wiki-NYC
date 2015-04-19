@@ -35,13 +35,11 @@ body {
   font-family:'Helvetica Neue',sans-serif;
   font-size:17px;
   border-radius:4px;
-  -moz-border-radius:4px;
-  -webkit-border-radius:4px;
   border:1px solid #1A87B9;
   cursor:pointer
 }
 #createArticle {
-	float: right; margin: -610px 4px 0 0;
+	float: right; margin: -597px 4px 0 0;
 }
 .myCreateButton {
   background: #25A6E1;
@@ -51,8 +49,6 @@ body {
   font-family:'Helvetica Neue',sans-serif;
   font-size:17px;
   border-radius:4px;
-  -moz-border-radius:4px;
-  -webkit-border-radius:4px;
   border:1px solid #1A87B9;
   cursor:pointer
 }
@@ -65,6 +61,17 @@ body {
   font-size:17px;
   border-radius:4px;
   border:1px solid white;
+  cursor:pointer
+}
+.myScrollButton{
+  background: #193535;
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',endColorstr='#188BC0',GradientType=0);
+  padding:8px 13px;
+  color:#fff;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:17px;
+  border-radius:4px;
+  border:1px solid #1A87B9;
   cursor:pointer
 }
 ul {

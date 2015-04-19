@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Author's Page</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="outer">
+ <form method = "POST" action ="/authors/{{id}}?_method=PUT"> 
+USERNAME <br />
+<input type ="text" name = "username" value = "{{username}}"> <br /> <br />
+FIRST NAME <br />
+<input type ="text" name = "first_name" value = "{{first_name}}"> <br /><br />
+LAST NAME <br />
+<input type ="text" name = "last_name" value = "{{last_name}}"> <br /><br />
+EMAIL <br />
+ <input type ="text" name = "email" value = "{{email}}"> <br /> <br />
+PROFILE IMAGE <br />
+<input type ="text" name = "profile_image" value = "{{profile_image}}"> <br />
+<br />
+<br />
+<button type = "submit" class="mybutton"> UPDATE ME!</button> <br /> <br />
+</form>
+<form method="POST" action="/authors/{{id}}?_method=DELETE">
+<button type ="submit" class="mybutton"> DELETE ME!</button>
+</form>
+<br />
+<a href="/authors/{{id}}"><button class = "mybutton">CANCEL</button> </a>
+  </div>
+</body>
+</html>

@@ -7,21 +7,22 @@
     </head>
   <body>
   </div>
-             <a href="/"><button class = "myCreateButton">+ CREATE NEW PROFILE </button></a>
-             <a href="/"><button class = "mybutton">GO BACK</button></a>
+             <a href="/"><button class = "myCreateButton">+ ADD NEW PROFILE </button></a>
+             <a href="/"><button class = "myScrollButton"><<</button></a>
            <br />
     <h3> LIST OF AUTHORS CONTRIBUTING TO WIKI NYC </h3> 
     <ul>
     {{#allAuthors}}
     <br />
-    {{username}}
-    <br />
+    <font color ="#003D3D"; style="text-transform: uppercase;">{{first_name}} {{last_name}}</font><br />
     <img class ="profiles" src='{{profile_image}}'>
     <br />
     <a href="/authors/{{id}}"><button class = "mybutton">FULL PROFILE</button></a>
     <a href="/authors/{{id}}/edit"><button class = "myEditButton">EDIT</button></a>
     <br />
     {{/allAuthors}}
+    <br />
+          <li><a href="/authors"><button class = "myScrollButton">^</button></a></li>
   </ul>
   </div>
   <br />

@@ -43,7 +43,7 @@
 
 <div>
 <div id = "createArticle">
-<a href="/articles/new"><button class = "myCreateButton"> + CREATE AN ARTICLE</button></a>
+<a href="/articles/new"><button class = "myCreateButton"> + ADD NEW ARTICLE</button></a>
 </div>
 <!-- <li> <p> View all articles of a particular category  </p> 
 <select name = "categories">
@@ -54,15 +54,15 @@
   <option value="entertainment">Entertainment</option>
 </select>
 <button class = "mybutton">ARTICLES by Category</button></p></li> -->
-<li> <p> View all articles of a particular author </p>
+<br />
    <form action="/articles" method="GET">
 <select name = "authors">
-  <option value="choose">Choose an author</option>
+  <option value="choose">Filter articles by author</option>
  {{#allAuthors}}
   <option value="{{id}}">{{username}}</option>
   {{/allAuthors}}
 </select> 
-<button class = "mybutton">Filter ARTICLES by AUTHOR</button></p></li>
+<button class = "mybutton">SEARCH</button></p></li>
 </form>
 </ul>
 </li> 

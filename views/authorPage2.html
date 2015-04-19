@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Author's Page</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="outer">
+<h3> Click on EDIT button to update or delete a profile </h3> 
+
+    <ul>
+    <li>USERNAME: {{username}} </li>
+    <li>FULL NAME: {{first_name}} {{last_name}}</li>
+    <li>EMAIL ADRESS: {{email}}</li> <br />
+    <img class ="profiles" src='{{profile_image}}'>
+    </ul>
+<h1> *****************************************************************************</h1>
+<a href="/authors/{{id}}/edit"><button class = "mybutton">EDIT PROFILE</button></a>
+<a href="/authors"><button class = "mybutton">GO BACK</button></a>
+  </div>
+</body>
+</html>
+

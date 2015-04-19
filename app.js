@@ -64,13 +64,33 @@ app.get('/authors', function(req, res) {
 app.get('/authors/:id', function(req, res) {
 	var id = req.params.id;
 	db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
-		fs.readFile('./authorPage.html', 'utf8', function(err, html) {
+				// fs.readFile('./authorPage2.html', 'utf8', function(err, html) {
+		fs.readFile('./authorPage2.html', 'utf8', function(err, html) {
 			console.log(author);
 			var renderedHTML = Mustache.render(html, author[0]);
 			res.send(renderedHTML);
 		});
 	});
 });
+
+
+
+//to edit a particular author
+app.get('/authors/:id/edit', function(req, res) {
+	var id = req.params.id;
+
+	//var template = fs.readFileSync('./authorPageEdit.html', 'utf8');
+
+	db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
+				// fs.readFile('./authorPage2.html', 'utf8', function(err, html) {
+		fs.readFile('./authorPageEdit.html', 'utf8', function(err, html) {
+			console.log(author);
+			var renderedHTMLEdit = Mustache.render(html, author[0]);
+			//res.send(id);
+			res.send(renderedHTMLEdit);
+		}); //end of fs read
+	}); //end of db all
+}); //end of app get
 
 //deleting the authors profile
 app.delete('/authors/:id', function(req, res) {
@@ -84,7 +104,7 @@ app.put('/authors/:id/', function(req, res) {
 	var id = req.params.id;
 	var authorInfo = req.body;
 	db.run("UPDATE authors SET username = '" + authorInfo.username + "',first_name = '" + authorInfo.first_name + "', last_name = '" + authorInfo.last_name + "', email = '" + authorInfo.email + "', profile_image = '" + authorInfo.profile_image + "' WHERE id = " + id + ";");
-	res.redirect("/authors");
+	res.redirect("/authors/:id");
 });
 
 ///////////////////////////////////////////////////////////////////////////
@@ -142,7 +162,7 @@ app.get('/articles', function(req, res) {
 	// END OF ACCESSING ALL ARTICLES	
 }); // end of app get
 
-//editing or deleting article
+//accessing page to edit an article
 app.get('/articles/:id', function(req, res) {
 	var id = req.params.id;
 	db.all('SELECT * FROM articles WHERE id= ' + id + ";", function(err, article) {
@@ -154,12 +174,14 @@ app.get('/articles/:id', function(req, res) {
 		});
 	});
 });
+//deleting article
 app.delete('/articles/:id', function(req, res) {
 	var id = req.params.id;
 	db.run("DELETE FROM articles WHERE id =" + id + ";");
 	res.redirect("/articles");
 });
 
+//sending changes to a server
 app.put('/articles/:id/', function(req, res) {
 	var id = req.params.id;
 	var articleInfo = req.body;

@@ -7,6 +7,20 @@
 </head>
 <body>
 <div class="outer">
+
+
+    <h3> Click on the author's link to edit or delete a profile </h3> 
+    <ul>
+    {{#allAuthors}}
+      <li><a href="/authors/{{id}}">{{id}} - {{username}} </a></li>
+      <img class ="profiles" src='{{profile_image}}'
+      <br />
+    {{/allAuthors}}
+
+
+
+
+
 <form method = "POST" action ="/authors/{{id}}?_method=PUT">
 USERNAME <input type ="text" name = "username" value = "{{username}}"> <br />
 FIRST NAME <input type ="text" name = "first_name" value = "{{first_name}}"> <br />

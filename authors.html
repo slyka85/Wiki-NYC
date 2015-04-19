@@ -8,19 +8,23 @@
   <body>
   </div>
              <a href="/"><button class = "myCreateButton">+ CREATE NEW PROFILE </button></a>
+             <a href="/"><button class = "mybutton">GO BACK</button></a>
            <br />
-    <h3> Click on the author's link to edit or delete a profile </h3> 
+    <h3> LIST OF AUTHORS CONTRIBUTING TO WIKI NYC </h3> 
     <ul>
     {{#allAuthors}}
-      <li><a href="/authors/{{id}}">{{id}} - {{username}} </a></li>
-      <img class ="profiles" src='{{profile_image}}'
-      <br />
+    <br />
+    {{username}}
+    <br />
+    <img class ="profiles" src='{{profile_image}}'>
+    <br />
+    <a href="/authors/{{id}}"><button class = "mybutton">FULL PROFILE</button></a>
+    <a href="/authors/{{id}}/edit"><button class = "myEditButton">EDIT</button></a>
+    <br />
     {{/allAuthors}}
   </ul>
   </div>
   <br />
-<a href="/"><button class = "mybutton">HOME</button> </a>
-
 
 </body>
 </html>

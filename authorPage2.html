@@ -7,8 +7,18 @@
 </head>
 <body>
 <div class="outer">
-<!-- <form method = "POST" action ="/authors/{{id}}/edit?_method=PUT"> -->
-<form method = "POST" action ="/authors/{{id}}/edit">
+<h3> Click on EDIT button to update or delete a profile </h3> 
+
+    <ul>
+    <li>USERNAME: {{username}} </li>
+    <li>FULL NAME: {{first_name}} - {{last_name}}</li>
+    <li>EMAIL ADRESS: {{email}}</li>
+    <img class ="profiles" src='{{profile_image}}'>
+    </ul>
+<h1> *****************************************************************************</h1>
+    <a href="/authors/{{id}}/edit"><button class = "mybutton">EDIT</button></a>
+
+<!-- <form method = "POST" action ="/authors/{{id}}">
 USERNAME <input type ="text" name = "username" value = "{{username}}"> <br />
 FIRST NAME <input type ="text" name = "first_name" value = "{{first_name}}"> <br />
 LAST NAME <input type ="text" name = "last_name" value = "{{last_name}}"> <br />
@@ -18,11 +28,13 @@ PROFILE IMAGE<input type ="text" name = "profile_image" value = "{{profile_image
 <br />
 <button type = "submit" class="mybutton"> UPDATE ME!</button> <br /> <br />
 </form>
+
 <form method="POST" action="/authors/{{id}}/?_method=DELETE">
 <button type ="submit" class="mybutton"> DELETE ME!</button>
 </form>
 <br />
-<a href="/authors"><button class = "mybutton">CANCEL</button> </a>
+<a href="/authors"><button class = "mybutton">CANCEL</button></a> -->
   </div>
 </body>
 </html>
+

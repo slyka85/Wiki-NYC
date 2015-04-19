@@ -7,51 +7,26 @@
   <body>
   </div>
     <a href="/articles/new"><button class = "myCreateButton"> + CREATE AN ARTICLE</button></a>
+      <a href="/"><button class = "mybutton">HOME</button></a>
   <br />
     <h3> Click on the article's link to edit or delete </h3> 
-
-<!--  <li> <p> View all articles of a particular category  </p> 
- <form action="/articles" method="GET">
-<select name = "categories">
-  <option value="choose">Choose a category</option>
-  <option value="leisure">Leisure</option>
-  <option value="food">Food</option>
-  <option value="lifehacks">Life Hacks</option>
-  <option value="entertainment">Entertainment</option>
-</select>
-<button class = "mybutton">ARTICLES by Category</button></p></li>
-<li> <p> View all articles of a particular author </p>
- <form action="/articles" method="GET">
-<select name = "authors">
-  <option value="choose">Choose an author</option>
- {{#allAuthors}}
-  <option value="{{id}}">{{username}}</option>
-  {{/allAuthors}}
-</select> 
-<button class = "mybutton">ARTICLES by Author</button></p></li>
-</form>
-</ul>
-</li>
- -->
-
     <ul>
     {{#allArticles}}
-      <li><a href="/articles/{{id}}">{{id}} - {{title}} </a></li> <br /> 
-      <b><i>category:</i></b> {{category}} 
       <br />
-     <b><i>created by: </i></b> {{authors_id}}
-      <br />
-      <b><i>last updated on:</i></b> {{date_created}}
-      <br /><br />
-      {{content}}
-      <br />
+      <li><a href="/articles/{{id}}">{{title}} </a></li> 
+      <li><b><i>category:</i></b> {{category}}</li>
+      <li><b><i>created by: </i></b> {{authors_id}}</li>
+      <li><b><i>last updated on:</i></b> {{date_created}}</li>
+      <li><p>{{content}}</p></li>
       <img class = "articles" src='{{image}}'>
+      <br />
+      <a href="/articles/{{id}}"><button class = "myEditButton">EDIT THIS ARTICLE</button></a>
+      <br />
     {{/allArticles}}
     <br />  
-  </ul>
+      <li><a href="/articles"><button class = "mybutton">SCROLL UP</button></a></li>
+      </ul>
   </div>
-  <br />
-  <a href="/"><button class = "mybutton">HOME</button> </a>
 </body>
 </html>
 

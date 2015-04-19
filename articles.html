@@ -6,10 +6,12 @@
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
   <body>
   </div>
-    <h3> Click on the article's link to edit or delete an article </h3> 
+    <a href="/articles/new"><button class = "myCreateButton"> + CREATE AN ARTICLE</button></a>
+  <br />
+    <h3> Click on the article's link to edit or delete </h3> 
 
-<li> <p> View all articles of a particular category  </p> 
-   <form action="/articles" method="GET">
+<!--  <li> <p> View all articles of a particular category  </p> 
+ <form action="/articles" method="GET">
 <select name = "categories">
   <option value="choose">Choose a category</option>
   <option value="leisure">Leisure</option>
@@ -19,7 +21,7 @@
 </select>
 <button class = "mybutton">ARTICLES by Category</button></p></li>
 <li> <p> View all articles of a particular author </p>
-
+ <form action="/articles" method="GET">
 <select name = "authors">
   <option value="choose">Choose an author</option>
  {{#allAuthors}}
@@ -30,9 +32,8 @@
 </form>
 </ul>
 </li>
+ -->
 
-
-    
     <ul>
     {{#allArticles}}
       <li><a href="/articles/{{id}}">{{id}} - {{title}} </a></li> <br /> 
@@ -49,8 +50,6 @@
     <br />  
   </ul>
   </div>
-  <a href="/articles/new"><button class = "mybutton">CREATE ANOTHER ARTICLE</button></a>
-  <br />
   <br />
   <a href="/"><button class = "mybutton">HOME</button> </a>
 </body>

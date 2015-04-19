@@ -7,51 +7,45 @@
   <link href="styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+<body class = "index">
 <div class="welcome">
 <h2> WELCOME TO NY CITY GUIDE WIKI!</h2>
 <p> This is a place for sharing ideas with tourists who come to visit NYC! </p>
 <br />
-<br />
-<br />
+<div class ="options">
+<a href="/authors"><button class = "mybutton">VIEW AUTHORS </button></a>
+<a href="/articles"><button class = "mybutton">VIEW ALL ARTICLES </button></a>
+<br /><br />
 </div>
 <div class="register">
 <h3> PLEASE REGISTER </h3> 
   <form action="/authors" method="POST">
 <div class ="labels">
-    <label>USERNAME:
-      <input type="text" name="username" placeholder =" type your username"/>
+    <label>USERNAME:       
+      <input type="text" name="username" size ="40" placeholder =" type your username"/>
       <br /><br /></label>
     <label>FIRST NAME:
-      <input type="text" name="first_name" placeholder =" type your first name"/>
+      <input type="text" name="first_name" size ="40" placeholder =" type your first name"/>
       <br /><br /></label>
     <label>LAST NAME:
-      <input type="text" name="last_name" placeholder =" type your last name"/>
+      <input type="text" name="last_name" size ="40" placeholder =" type your last name"/>
       <br /><br /></label>
     <label>EMAIL ADDRESS:
-      <input type="text" name="email" placeholder =" type your email"/>
+      <input type="text" name="email" size ="40" placeholder =" type your email"/>
       <br /><br /></label>
     <label>PROFILE IMAGE:
-      <input type="text" name="profile_image" placeholder =" paste link to an image"/> 
+      <input type="text" name="profile_image" size ="40" placeholder =" paste link to an image"/> 
       <br /><br /></label>
-    <button class = "mybutton">REGISTER</button>
+    <button class = "myCreateButton">REGISTER</button>
     </div>
     </div>
     </form>
 
-<div class ="options">
-<br /><br />
-<ul>
-    <br />
-<a href="/authors"><button class = "viewAuthors">VIEW ALL AUTHORS PROFILES</button></a>
-<a href="/articles/new"><button class = "newarticle">CREATE AN ARTICLE</button></a>
-<br />
-<li> <p> View all articles </p> 
-<a href="/articles"><button class = "viewArticles">VIEW ALL ARTICLES </button></a>
-</li>
-
-<li> <p> View all articles of a particular category  </p> 
-   <form action="/articles" method="GET">
+<div>
+<div id = "createArticle">
+<a href="/articles/new"><button class = "myCreateButton"> + CREATE AN ARTICLE</button></a>
+</div>
+<!-- <li> <p> View all articles of a particular category  </p> 
 <select name = "categories">
   <option value="choose">Choose a category</option>
   <option value="leisure">Leisure</option>
@@ -59,19 +53,19 @@
   <option value="lifehacks">Life Hacks</option>
   <option value="entertainment">Entertainment</option>
 </select>
-<button class = "mybutton">ARTICLES by Category</button></p></li>
+<button class = "mybutton">ARTICLES by Category</button></p></li> -->
 <li> <p> View all articles of a particular author </p>
-
+   <form action="/articles" method="GET">
 <select name = "authors">
   <option value="choose">Choose an author</option>
  {{#allAuthors}}
   <option value="{{id}}">{{username}}</option>
   {{/allAuthors}}
 </select> 
-<button class = "mybutton">ARTICLES by Author</button></p></li>
+<button class = "mybutton">Filter ARTICLES by AUTHOR</button></p></li>
 </form>
 </ul>
-</li>
+</li> 
 </div>
 </body>
 </html>

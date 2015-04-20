@@ -3,38 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Author's Page</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-body {
-    background-image: url("http://i.imgur.com/sUKO0hk.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-.myEditButton{
-  background: #006666;
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',endColorstr='#188BC0',GradientType=0);
-  padding:8px 13px;
-  color:#fff;
-  font-family:'Helvetica Neue',sans-serif;
-  font-size:17px;
-  border-radius:4px;
-  border:1px solid white;
-  cursor:pointer
-}
-.mybutton {
-  background: #193535;
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',endColorstr='#188BC0',GradientType=0);
-  padding:8px 13px;
-  color:#fff;
-  font-family:'Helvetica Neue',sans-serif;
-  font-size:17px;
-  border-radius:4px;
-  border:1px solid #1A87B9;
-  cursor:pointer
-}
-     </style>
+    <link href="/styles/style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class = "index">
 <div class="outer">
 <h3> Click on EDIT button to update or delete a profile </h3> 
 
@@ -42,10 +13,16 @@ body {
     <li>USERNAME: {{username}} </li>
     <li>FULL NAME: {{first_name}} {{last_name}}</li>
     <li>EMAIL ADRESS: {{email}}</li> <br />
-    <img class ="profiles" src='{{profile_image}}'>
+    <img class ="profiles" src='{{profile_image}}'> <br />
+
+
+    <a href="/authors/{{id}}/edit"><button class = "myEditButton">EDIT PROFILE</button></a>
+
     </ul>
 <h1> *****************************************************************************</h1>
-<a href="/authors/{{id}}/edit"><button class = "myEditButton">EDIT PROFILE</button></a>
+<form action="/authors/{{id}}" method="GET">
+<button class = "mybutton" name="authorsArticles" value="{{id}}">VIEW ALL {{username}} ARTICLES</button>
+    </form>
 <a href="/authors"><button class = "mybutton">GO BACK</button></a>
   </div>
 </body>

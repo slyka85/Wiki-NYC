@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>All Articles</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/style.css" rel="stylesheet" type="text/css" />
   <body>
   </div>
     <a href="/articles/new"><button class = "myCreateButton"> + ADD NEW ARTICLE</button></a>
@@ -13,10 +13,10 @@
     {{#allArticles}}
       <br />
       <li><h3>{{title}}</h3></li> 
-      <li><b>category: </b>{{category}}</li>
-      <li><b>created by: </b>{{authors_id}}</li>
-      <li><b>last updated on: </b>{{date_created}}</li>
-      <li><p>{{content}}</p></li>
+      <li><b>category:</b> {{category}}</li>
+      <li><b>created by:</b> {{authors_id}}</li>
+      <li><b>last updated on:</b> {{date_created}}</li>
+      <li><p>{{{content}}}</p></li>
       <img class = "articles" src='{{image}}'>
       <br />
       <a href="/articles/{{id}}"><button class = "myEditButton">EDIT THIS ARTICLE</button></a>

@@ -9,7 +9,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var db = new sqlite3.Database('./database.db');
-var path = require('path');
+//var path = require('path');
 var marked = require('marked');
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -29,7 +29,7 @@ var app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
-app.use("/styles", express.static(__dirname + '/public/css'));
+app.use("/styles", express.static(__dirname + '/public/styles'));
 // app.use(express.static(__dirname + '/public'));
 // app.use(express.static(__dirname + '/views'));
 // app.use(express.static(__dirname + '/uploads'));
@@ -82,6 +82,26 @@ app.get('/authors', function(req, res) {
 //accessing a page of a particular author to view
 app.get('/authors/:id', function(req, res) {
 	var id = req.params.id;
+
+
+
+
+// //view all articles. reading a template and mustaching articles into html
+	var template = fs.readFileSync('./views/articles.html', 'utf8');
+
+
+	var authorNameSearchedInArticles = "SELECT * FROM articles WHERE authors_id = " + id + ";";
+		var authorsArticles = req.query.authorsArticles;
+		console.log(authorsArticles);
+// 	//accessing ALL articles of a particular user
+	if (authorsArticles) {
+		db.all(authorNameSearchedInArticles, function(err, articles) {
+			var html = Mustache.render(template, {allArticles: articles});
+			res.send(html);
+		}); //end of db all nested
+	} //end of if statement
+	else{
+
 	db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
 		fs.readFile('./views/authorPage2.html', 'utf8', function(err, html) {
 			//console.log(author);
@@ -89,6 +109,7 @@ app.get('/authors/:id', function(req, res) {
 			res.send(renderedHTML);
 		}); //end of fa readFile
 	}); //end of db all
+} //end of else
 }); //end of app get authors id
 
 //to edit a particular author
@@ -146,7 +167,7 @@ app.post('/articles', function(req, res) {
 	var category = req.body.categories;
 	var author = req.body.authors;
 	//console.log(author);
-	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + unescape(marked(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
+	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + marked(req.body.content) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
 	console.log('article info sent to database');
 	res.redirect("/articles");
 });
@@ -176,7 +197,7 @@ app.get('/articles', function(req, res) {
 			res.send(html);
 		}); //end of db all nested
 	} //end of else
-	// END OF ACCESSING ALL ARTICLES	
+	// END OF accessing all articles
 }); // end of app get
 
 //accessing article page to edit an article
@@ -202,7 +223,7 @@ app.delete('/articles/:id', function(req, res) {
 app.put('/articles/:id/', function(req, res) {
 	var id = req.params.id;
 	var articleInfo = req.body;
-	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + unescape(marked(articleInfo.content)) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
+	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + marked(articleInfo.content) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
 	res.redirect("/articles");
 }); //end of app put
 

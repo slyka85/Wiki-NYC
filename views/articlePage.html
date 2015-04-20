@@ -3,30 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Article's Page</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
-        <style type="text/css">
-body {
-    background-image: url("http://i.imgur.com/sUKO0hk.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-     </style>
+    <link href="/styles/style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class = "index">
 <div class="outer">
 <form method = "POST" action ="/articles/{{id}}?_method=PUT">
 Author <br />
-<input type ="text" name = "authors_id" value = "{{authors_id}}"> <br /><br />
+<input type ="text" name = "authors_id" value ="{{authors_id}}"> <br /><br />
 Date created <br />
-<input type ="text" name = "date_created" value = "{{date_created}}"> <br /><br />
+<input type ="date" name = "date_created" value ="{{date_created}}"> <br /><br />
 Category <br />
-<input type ="text" name = "category" value = "{{category}}"> <br /><br />
+<input type ="text" name = "category" value ="{{category}}"> <br /><br />
 Title <br />
-<input type ="text" name = "title" value = "{{title}}"> <br /><br />
+<input type ="text" name = "title" value = "{{{title}}}"> <br /><br />
 Content <br />
-<textarea type ="text" rows="25" cols="75" name = "content"> {{content}}</textarea> <br />
+<textarea type ="text" rows="25" cols="75" name = "content">{{{content}}}</textarea> <br />
 Image link <br />
-<input type ="text" name = "image" value = "{{image}}"> <br /><br />
+<input type ="text" size = "77" name = "image" value = "{{image}}"> <br /><br />
 <button type = "submit" class="mybutton"> UPDATE ME!</button> <br /> <br />
 </form>
 <form method="POST" action="/articles/{{id}}?_method=DELETE">

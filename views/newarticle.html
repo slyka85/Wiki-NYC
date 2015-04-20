@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Articles</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+    <link href = "/styles/style.css" rel="stylesheet" type="text/css">
   </head>
-  <body>
+  <body class = "index">
 <div class="outer">
 <h2> CREATE A NEW ARTICLE HERE!</h2>
   <form action="/articles" method="POST">
@@ -32,18 +32,13 @@
   <option value="entertainment">ENTERTAINMENT</option>
 </select> 
     </label>
-        <label>
-        <br />
-    <br />
+        <label><br /><br />
       DATE:
-      <input type="text" name="date_created" placeholder ="what is today's date?"/>
-    </label>
-<br />
-
-<br />
+      <input type="date" name="date_created" placeholder ="what is today's date?"/>
+    </label><br /><br />
     <label>
       TITLE:
-      <input type="text" name="title" placeholder ="Title of your article goes here"/>
+      <input type="text" size = "69" name="title" placeholder ="Title of your article goes here"/>
     </label>
     <br />
     <br />
@@ -56,8 +51,8 @@
         <label>
     <br />
     <br />
-      ATTACH IMAGE:
-      <input type="text" name="image" placeholder ="Paste link to the image for your article here"/>
+      ATTACH IMAGE: <br /> 
+      <input type="text" size = "77" name="image" placeholder ="Paste link to the image for your article here"/>
     </label>
         <br />
     <br />

@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <title>Article's Page</title>
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
+        <style type="text/css">
+body {
+    background-image: url("http://i.imgur.com/sUKO0hk.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+     </style>
 </head>
 <body>
 <div class="outer">
@@ -17,12 +24,9 @@ Category <br />
 Title <br />
 <input type ="text" name = "title" value = "{{title}}"> <br /><br />
 Content <br />
-<textarea type ="text" rows="25" cols="75" name = "content"> "{{content}}"</textarea> <br /><br />
-<br />
+<textarea type ="text" rows="25" cols="75" name = "content"> {{content}}</textarea> <br />
 Image link <br />
 <input type ="text" name = "image" value = "{{image}}"> <br /><br />
-<br />
-<br />
 <button type = "submit" class="mybutton"> UPDATE ME!</button> <br /> <br />
 </form>
 <form method="POST" action="/articles/{{id}}?_method=DELETE">

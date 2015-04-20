@@ -11,6 +11,17 @@ var methodOverride = require('method-override');
 var db = new sqlite3.Database('./database.db');
 var path = require('path');
 var marked = require('marked');
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
+
 //var sendgrid = require("sendgrid")(api_user, api_key);
 //var email = new sendgrid.Email();
 
@@ -134,8 +145,8 @@ app.get('/articles/new', function(req, res) {
 app.post('/articles', function(req, res) {
 	var category = req.body.categories;
 	var author = req.body.authors;
-	console.log(author);
-	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + req.body.content + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
+	//console.log(author);
+	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + unescape(marked(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
 	console.log('article info sent to database');
 	res.redirect("/articles");
 });
@@ -191,7 +202,7 @@ app.delete('/articles/:id', function(req, res) {
 app.put('/articles/:id/', function(req, res) {
 	var id = req.params.id;
 	var articleInfo = req.body;
-	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + articleInfo.content + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
+	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + unescape(marked(articleInfo.content)) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
 	res.redirect("/articles");
 }); //end of app put
 

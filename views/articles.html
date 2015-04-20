@@ -7,14 +7,14 @@
   <body>
   </div>
     <a href="/articles/new"><button class = "myCreateButton"> + ADD NEW ARTICLE</button></a>
-      <a href="/"><button class = "myScrollButton"><</button></a>
+      <a href="/"><button class = "myScrollButton"><<</button></a>
   <br />
     <ul>
     {{#allArticles}}
       <br />
       <li><h3>{{title}}</h3></li> 
       <li><b>category:</b> {{category}}</li>
-      <li><b>created by:</b> {{authors_id}}</li>
+      <li><b>created by:</b> {{username}}</li>
       <li><b>last updated on:</b> {{date_created}}</li>
       <li><p>{{{content}}}</p></li>
       <img class = "articles" src='{{image}}'>

@@ -12,30 +12,24 @@ var db = new sqlite3.Database('./database.db');
 //var path = require('path');
 var marked = require('marked');
 marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: true,
-  smartLists: true,
-  smartypants: false
+	renderer: new marked.Renderer(),
+	gfm: true,
+	tables: true,
+	breaks: false,
+	pedantic: false,
+	sanitize: true,
+	smartLists: true,
+	smartypants: false
 });
 
 //var sendgrid = require("sendgrid")(api_user, api_key);
 //var email = new sendgrid.Email();
-
 var app = express();
+var he = require('he');
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use("/styles", express.static(__dirname + '/public/styles'));
-// app.use(express.static(__dirname + '/public'));
-// app.use(express.static(__dirname + '/views'));
-// app.use(express.static(__dirname + '/uploads'));
-//app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.static(__dirname + '/'));
-//app.use(express.static('/views'));
 //////////////////////////////////////// boiler plate
 
 
@@ -50,7 +44,9 @@ app.get('/', function(req, res) {
 	//sending new authors to a dropdown menu
 	var template = fs.readFileSync('./views/index.html', 'utf8');
 	db.all('SELECT * FROM authors;', function(err, authors) {
-		var html = Mustache.render(template, {allAuthors: authors}); //end of mustache
+		var html = Mustache.render(template, {
+			allAuthors: authors
+		}); //end of mustache
 		res.send(html);
 	}); //end of db all
 }); //end of app get
@@ -83,47 +79,40 @@ app.get('/authors', function(req, res) {
 app.get('/authors/:id', function(req, res) {
 	var id = req.params.id;
 
-
-
-
-// //view all articles. reading a template and mustaching articles into html
+	//view all articles. reading a template and mustaching articles into html
 	var template = fs.readFileSync('./views/articles.html', 'utf8');
-
-
 	var authorNameSearchedInArticles = "SELECT * FROM articles WHERE authors_id = " + id + ";";
-		var authorsArticles = req.query.authorsArticles;
-		console.log(authorsArticles);
-// 	//accessing ALL articles of a particular user
+	var authorsArticles = req.query.authorsArticles;
+	console.log(authorsArticles);
+	//accessing ALL articles of a particular user
 	if (authorsArticles) {
 		db.all(authorNameSearchedInArticles, function(err, articles) {
-			var html = Mustache.render(template, {allArticles: articles});
+			var html = Mustache.render(template, {
+				allArticles: articles
+			});
 			res.send(html);
 		}); //end of db all nested
-	} //end of if statement
-	else{
 
-	db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
-		fs.readFile('./views/authorPage2.html', 'utf8', function(err, html) {
-			//console.log(author);
-			var renderedHTML = Mustache.render(html, author[0]);
-			res.send(renderedHTML);
-		}); //end of fa readFile
-	}); //end of db all
-} //end of else
+		//accessing a page of a particular author to view
+	} else {
+		db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
+			fs.readFile('./views/authorPage2.html', 'utf8', function(err, html) {
+				//console.log(author);
+				var renderedHTML = Mustache.render(html, author[0]);
+				res.send(renderedHTML);
+			}); //end of fa readFile
+		}); //end of db all
+	} //end of else
 }); //end of app get authors id
 
 //to edit a particular author
 app.get('/authors/:id/edit', function(req, res) {
 	var id = req.params.id;
 
-	//var template = fs.readFileSync('./authorPageEdit.html', 'utf8');
-
 	db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
-				// fs.readFile('./authorPage2.html', 'utf8', function(err, html) {
 		fs.readFile('./views/authorPageEdit.html', 'utf8', function(err, html) {
 			console.log(author);
 			var renderedHTMLEdit = Mustache.render(html, author[0]);
-			//res.send(id);
 			res.send(renderedHTMLEdit);
 		}); //end of fs read
 	}); //end of db all
@@ -167,7 +156,7 @@ app.post('/articles', function(req, res) {
 	var category = req.body.categories;
 	var author = req.body.authors;
 	//console.log(author);
-	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + marked(req.body.content) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
+	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + mustache(he.encode(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
 	console.log('article info sent to database');
 	res.redirect("/articles");
 });
@@ -175,27 +164,45 @@ app.post('/articles', function(req, res) {
 
 //view all articles. reading a template and mustaching articles into html
 app.get('/articles', function(req, res) {
+	//var updatedArticles = [];
 	var template = fs.readFileSync('./views/articles.html', 'utf8');
 	var allAuthors = "SELECT * FROM authors;";
 	var allArticles = "SELECT * FROM articles;";
 	var authorSearch = req.query.authors;
-	console.log(authorSearch);
+	// console.log(authorSearch);
 
 	var authorNameSearchedInArticles = "SELECT * FROM articles WHERE authors_id = " + authorSearch + ";";
 
-	//accessing ALL articles of a particular user
+//accessing ALL articles of a particular user
 	if (authorSearch) {
-		db.all(authorNameSearchedInArticles, function(err, articles) {
-			var html = Mustache.render(template, {allArticles: articles});
+		db.all(authorNameSearchedInArticles, {}, function(err, articles) {
+			var html = Mustache.render(template, {
+				allArticles: articles
+			});
 			res.send(html);
 		}); //end of db all nested
-	} //end of if statement
-	else {
+
 		//accessing ALL articles of ALL users
+	} else {
 		db.all(allArticles, function(err, articles) {
-			var html = Mustache.render(template, {allArticles: articles});
-			res.send(html);
-		}); //end of db all nested
+			var updatedArticles = [];
+			var i = 0;
+			articles.forEach(function(el) {
+				db.each("SELECT * FROM authors WHERE id = " + el.authors_id, {}, function(err, author) {
+					console.log(author);
+					el.username = author.username;
+					updatedArticles.push(el);
+					i++;
+					if (i === articles.length) {
+						console.log(updatedArticles);
+						var html = Mustache.render(template, {
+							allArticles: updatedArticles
+						}); //end of Mustache
+						res.send(html);
+					} // end of if statement
+				}); //end of db each
+			}); //end of foreach
+		}); //end of db all in else
 	} //end of else
 	// END OF accessing all articles
 }); // end of app get
@@ -223,7 +230,7 @@ app.delete('/articles/:id', function(req, res) {
 app.put('/articles/:id/', function(req, res) {
 	var id = req.params.id;
 	var articleInfo = req.body;
-	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + marked(articleInfo.content) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
+	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + marked(he.decode(articleInfo.content)) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
 	res.redirect("/articles");
 }); //end of app put
 

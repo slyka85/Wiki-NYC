@@ -43,7 +43,7 @@ app.get('/', function(req, res) {
 
 	//sending new authors to a dropdown menu
 	var template = fs.readFileSync('./views/index.html', 'utf8');
-	db.all('SELECT * FROM authors;', {}, function(err, authors) {
+	db.all("SELECT * FROM authors;", {}, function(err, authors) {
 		var html = Mustache.render(template, {
 			allAuthors: authors
 		}); //end of mustache
@@ -143,7 +143,7 @@ app.get('/articles/new', function(req, res) {
 	var template = fs.readFileSync('./views/newarticle.html', 'utf8');
 
 	//sending new authors to a dropdown menu
-	db.all('SELECT * FROM authors;', {}, function(err, authors) {
+	db.all("SELECT * FROM authors;", {}, function(err, authors) {
 		var html = Mustache.render(template, {
 			allAuthors: authors
 		}); //end of mustache
@@ -188,7 +188,7 @@ app.get('/articles', function(req, res) {
 			var updatedArticles = [];
 			var i = 0;
 			articles.forEach(function(el) {
-				db.each("SELECT * FROM authors WHERE id = " + el.authors_id, {}, function(err, author) {
+				db.each("SELECT * FROM authors WHERE id = " + el.authors_id + ";", {}, function(err, author) {
 					console.log(author);
 					el.username = author.username;
 					updatedArticles.push(el);
@@ -210,7 +210,7 @@ app.get('/articles', function(req, res) {
 //accessing article page to edit an article
 app.get('/articles/:id', function(req, res) {
 	var id = req.params.id;
-	db.all('SELECT * FROM articles WHERE id= ' + id + ";", {}, function(err, article) {
+	db.all("SELECT * FROM articles WHERE id = " + id + ";", {}, function(err, article) {
 		fs.readFile('./views/articlePage.html', 'utf8', function(err, html) {
 
 			var renderedHTML = Mustache.render(html, article[0]);
@@ -232,7 +232,7 @@ app.put('/articles/:id/', function(req, res) {
 	var articleInfo = req.body;
 	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + marked(he.decode(articleInfo.content)) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
 	res.redirect("/articles");
-}); //end of app put
+}); //end of app puts
 
 
 app.listen(5000, function() {

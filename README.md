@@ -1,4 +1,4 @@
-#WIKI NYC
+![wiki](http://i.imgur.com/5mdeC9X.png)
 
 ###FEATURES:
 * * *
@@ -34,20 +34,31 @@ Once submitted, a user will be redirected to a list of all articles.
 
 - A user can search articles by its category (feature is currently under construction)
 
+- User can view all authors registered on Wiki by clicking **VIEW AUTHORS** button on homepage
+
+![authors](http://i.imgur.com/GleUsB7.png)
+
+- From all authors page, a user can view a particular author's profile to see his/her email address, username and full name.
+
+![author](http://i.imgur.com/5tvxaGA.png)
+
+- A user can edit his/her personal info by clicking **EDIT PROFILE** button.
+
+![edit](http://i.imgur.com/wX2V162.png)
+
+- From edit page, a profile can be also deleted.
 
 ###ROUTES
 * * *
 
-![routes](http://i.imgur.com/pn0oeBo.png)
+![routes](http://i.imgur.com/WiyIB5O.png)
 * * *
 ###WIREFRAMES
 * * *
 ![welcome](http://i.imgur.com/reYbi9l.png)
 
 
-***FEATURES:***
 
-Once on the homepage, a user can choose the next steps:
 - If a user chose to create/add a new article:
 
 ![new](http://i.imgur.com/xabsHLZ.jpg)
@@ -76,20 +87,6 @@ Once on the homepage, a user can choose the next steps:
 
 - to edit an author' profile page
 ![authorsIdEdit](http://i.imgur.com/Tsnmcvt.jpg)
-The user will be redirected to "/authors/:ID"
 * * *
 ##ERD
-![articles](http://i.imgur.com/EtT68mj.png)
-
-![authors](http://i.imgur.com/SclykLa.png)
-
-
-Pending features:
-- owner of an article should receive email when it's been edited
-- add a category
-?
-template for creating a new article?
-authors_id??? through the username??
-request?
-categories?
-add stuff to a drop down menu?
+![database](http://i.imgur.com/lNse6w7.png)

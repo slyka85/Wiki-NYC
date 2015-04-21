@@ -1,7 +1,25 @@
 ![wiki](http://i.imgur.com/5mdeC9X.png)
 
-###FEATURES:
-* * *
+##ERD
+![database](http://i.imgur.com/lNse6w7.png)
+
+## MODULES USED
+
+ - "body-parser": "^1.12.2",
+ - "express": "^4.12.3",
+ - "he": "^0.5.0",
+ - "marked": "^0.3.3",
+ - "method-override": "^2.3.2",
+ - "morgan": "^1.5.2",
+ - "mustache": "^2.0.0",
+ - "path": "^0.11.14",
+ - "sendgrid": "^1.6.1",
+ - "sqlite3": "^3.0.5"
+
+
+
+ ##FEATURES:
+ * * *
 Once connected, a user sees a **WELCOME** page
 - From there a user can **REGISTER** by creating a new profile that consists of:
   - username
@@ -88,5 +106,3 @@ Once submitted, a user will be redirected to a list of all articles.
 - to edit an author' profile page
 ![authorsIdEdit](http://i.imgur.com/Tsnmcvt.jpg)
 * * *
-##ERD
-![database](http://i.imgur.com/lNse6w7.png)

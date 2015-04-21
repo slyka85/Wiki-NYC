@@ -43,7 +43,7 @@ app.get('/', function(req, res) {
 
 	//sending new authors to a dropdown menu
 	var template = fs.readFileSync('./views/index.html', 'utf8');
-	db.all('SELECT * FROM authors;', function(err, authors) {
+	db.all('SELECT * FROM authors;', {}, function(err, authors) {
 		var html = Mustache.render(template, {
 			allAuthors: authors
 		}); //end of mustache
@@ -67,7 +67,7 @@ app.post('/authors', function(req, res) {
 app.get('/authors', function(req, res) {
 	var template = fs.readFileSync('./views/authors.html', 'utf8');
 
-	db.all('SELECT * FROM authors;', function(err, authors) {
+	db.all('SELECT * FROM authors;', {}, function(err, authors) {
 		var html = Mustache.render(template, {
 			allAuthors: authors
 		});
@@ -86,7 +86,7 @@ app.get('/authors/:id', function(req, res) {
 	console.log(authorsArticles);
 	//accessing ALL articles of a particular user
 	if (authorsArticles) {
-		db.all(authorNameSearchedInArticles, function(err, articles) {
+		db.all(authorNameSearchedInArticles, {}, function(err, articles) {
 			var html = Mustache.render(template, {
 				allArticles: articles
 			});
@@ -95,7 +95,7 @@ app.get('/authors/:id', function(req, res) {
 
 		//accessing a page of a particular author to view
 	} else {
-		db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
+		db.all("SELECT * FROM authors WHERE id = " + id + ";", {}, function(err, author) {
 			fs.readFile('./views/authorPage2.html', 'utf8', function(err, html) {
 				//console.log(author);
 				var renderedHTML = Mustache.render(html, author[0]);
@@ -109,7 +109,7 @@ app.get('/authors/:id', function(req, res) {
 app.get('/authors/:id/edit', function(req, res) {
 	var id = req.params.id;
 
-	db.all('SELECT * FROM authors WHERE id= ' + id + ";", function(err, author) {
+	db.all("SELECT * FROM authors WHERE id = " + id + ";", {}, function(err, author) {
 		fs.readFile('./views/authorPageEdit.html', 'utf8', function(err, html) {
 			console.log(author);
 			var renderedHTMLEdit = Mustache.render(html, author[0]);
@@ -121,7 +121,7 @@ app.get('/authors/:id/edit', function(req, res) {
 //deleting the authors profile
 app.delete('/authors/:id', function(req, res) {
 	var id = req.params.id;
-	db.run("DELETE FROM authors WHERE id =" + id + ";");
+	db.run("DELETE FROM authors WHERE id = " + id + ";");
 	res.redirect("/authors");
 });
 
@@ -143,7 +143,7 @@ app.get('/articles/new', function(req, res) {
 	var template = fs.readFileSync('./views/newarticle.html', 'utf8');
 
 	//sending new authors to a dropdown menu
-	db.all('SELECT * FROM authors;', function(err, authors) {
+	db.all('SELECT * FROM authors;', {}, function(err, authors) {
 		var html = Mustache.render(template, {
 			allAuthors: authors
 		}); //end of mustache
@@ -156,7 +156,7 @@ app.post('/articles', function(req, res) {
 	var category = req.body.categories;
 	var author = req.body.authors;
 	//console.log(author);
-	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + mustache(he.encode(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
+	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + marked(he.encode(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
 	console.log('article info sent to database');
 	res.redirect("/articles");
 });
@@ -184,7 +184,7 @@ app.get('/articles', function(req, res) {
 
 		//accessing ALL articles of ALL users
 	} else {
-		db.all(allArticles, function(err, articles) {
+		db.all(allArticles, {}, function(err, articles) {
 			var updatedArticles = [];
 			var i = 0;
 			articles.forEach(function(el) {
@@ -210,7 +210,7 @@ app.get('/articles', function(req, res) {
 //accessing article page to edit an article
 app.get('/articles/:id', function(req, res) {
 	var id = req.params.id;
-	db.all('SELECT * FROM articles WHERE id= ' + id + ";", function(err, article) {
+	db.all('SELECT * FROM articles WHERE id= ' + id + ";", {}, function(err, article) {
 		fs.readFile('./views/articlePage.html', 'utf8', function(err, html) {
 
 			var renderedHTML = Mustache.render(html, article[0]);

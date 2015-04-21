@@ -1,5 +1,40 @@
 #WIKI NYC
 
+###FEATURES:
+* * *
+Once connected, a user sees a **WELCOME** page
+- From there a user can **REGISTER** by creating a new profile that consists of:
+  - username
+  - email address
+  - full name
+  - profile image
+
+![register](http://i.imgur.com/l8PsYy8.png)
+
+
+- Once registered, a user is able to create an article by clicking on a **ADD NEW ARTICLE** button. The user is being redirected to a page with a form for a new article. A user should choose his username from a dropdown menu, category for the article and date. Then fill out the title, content fields and link to an image to be displayed within the article. And hit submit.
+
+![new](http://i.imgur.com/E4NxoAA.png)
+
+Once submitted, a user will be redirected to a list of all articles.
+- From there a user can view all the articles information, such as:
+ - category
+ - username created the article
+ - date of creation/last update
+ - content
+- Or, edit a particular article by clicking on **EDIT ARTICLE** button.
+
+![edit](http://i.imgur.com/gmdiCrt.png)
+
+- On edit article page, a user can modify content, date, title or image. Click **UPDATE** to save changes. If an article is outdated or inaccurate, a user can **DELETE ** it.
+![edit](http://i.imgur.com/KKoI2mM.png)
+
+- A user can filter articles by an author's name. On main page, choose a name of an author from a dropdown menu and hit **SEARCH** to be redirected to articles page filtered.
+![filter](http://i.imgur.com/qZj7I2w.png)
+
+- A user can search articles by its category (feature is currently under construction)
+
+
 ###ROUTES
 * * *
 

@@ -50,6 +50,6 @@ app.post('/articles', articles.newArticle);
 app.delete('/authors/:id', authors.deleteAuthor);
 app.delete('/articles/:id', articles.deleteArticle);
 
-app.listen(7000, function() {
+app.listen(5000, function() {
 	console.log("LISTENING!");
 });

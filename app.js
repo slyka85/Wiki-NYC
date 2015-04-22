@@ -1,6 +1,6 @@
-// WIKI NYC GUIDE APP
+// WikiPIZZiA APP
 
-/////////////////////////////////////// boiler plate
+/////////////////////////////////////////////////////////////////// boiler plate
 var express = require('express');
 var sqlite3 = require('sqlite3');
 var fs = require('fs');
@@ -21,7 +21,6 @@ marked.setOptions({
 	smartLists: true,
 	smartypants: false
 });
-
 //var sendgrid = require("sendgrid")(api_user, api_key);
 //var email = new sendgrid.Email();
 var app = express();
@@ -30,211 +29,27 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use("/styles", express.static(__dirname + '/public/styles'));
-//////////////////////////////////////// boiler plate
+var authors = require('./authors.js');
+var articles = require('./articles.js');
+/////////////////////////////////////////////////////////////////// boiler plate
 
+app.get('/', authors.showWelcome); 
+app.get('/authors', authors.showAllAuthors);
+app.get('/authors/:id', authors.showAuthor);
+app.get('/authors/:id/edit', authors.editAuthor);
+app.get('/articles/new', articles.showNewArticleForm);
+app.get('/articles', articles.showAllArticles);
+app.get('/articles/:id', articles.showArticle);
 
+app.put('/articles/:id/', articles.saveArticle);
+app.put('/authors/:id/', authors.saveAuthor);
 
-//////////////////////////////////////////////////////////////////////////////
-//                             WELCOME PAGE                                //
-////////////////////////////////////////////////////////////////////////////
+app.post('/authors', authors.newAuthor);
+app.post('/articles', articles.newArticle);
 
-//reading the index HTML template
-app.get('/', function(req, res) {
+app.delete('/authors/:id', authors.deleteAuthor);
+app.delete('/articles/:id', articles.deleteArticle);
 
-	//sending new authors to a dropdown menu
-	var template = fs.readFileSync('./views/index.html', 'utf8');
-	db.all("SELECT * FROM authors;", {}, function(err, authors) {
-		var html = Mustache.render(template, {
-			allAuthors: authors
-		}); //end of mustache
-		res.send(html);
-	}); //end of db all
-}); //end of app get
-
-/////////////////////////////////////////////////////////////////////////////
-//                          AUTHORS STUFF                                 //
-///////////////////////////////////////////////////////////////////////////
-
-//creating new author
-app.post('/authors', function(req, res) {
-	console.log(req.body);
-	db.run("INSERT INTO authors (username, first_name, last_name, email, profile_image) VALUES ('" + req.body.username + "','" + req.body.first_name + "','" + req.body.last_name + "','" + req.body.email + "','" + req.body.profile_image + "')");
-	console.log('authors info sent to database');
-	res.redirect("/authors");
-});
-
-//view all authors. reading a template and mustaching authors into html
-app.get('/authors', function(req, res) {
-	var template = fs.readFileSync('./views/authors.html', 'utf8');
-
-	db.all('SELECT * FROM authors;', {}, function(err, authors) {
-		var html = Mustache.render(template, {
-			allAuthors: authors
-		});
-		res.send(html);
-	});
-});
-
-//accessing a page of a particular author to view
-app.get('/authors/:id', function(req, res) {
-	var id = req.params.id;
-
-	//view all articles. reading a template and mustaching articles into html
-	var template = fs.readFileSync('./views/articles.html', 'utf8');
-	var authorNameSearchedInArticles = "SELECT * FROM articles WHERE authors_id = " + id + ";";
-	var authorsArticles = req.query.authorsArticles;
-	console.log(authorsArticles);
-	//accessing ALL articles of a particular user
-	if (authorsArticles) {
-		db.all(authorNameSearchedInArticles, {}, function(err, articles) {
-			var html = Mustache.render(template, {
-				allArticles: articles
-			});
-			res.send(html);
-		}); //end of db all nested
-
-		//accessing a page of a particular author to view
-	} else {
-		db.all("SELECT * FROM authors WHERE id = " + id + ";", {}, function(err, author) {
-			fs.readFile('./views/authorPage2.html', 'utf8', function(err, html) {
-				//console.log(author);
-				var renderedHTML = Mustache.render(html, author[0]);
-				res.send(renderedHTML);
-			}); //end of fa readFile
-		}); //end of db all
-	} //end of else
-}); //end of app get authors id
-
-//to edit a particular author
-app.get('/authors/:id/edit', function(req, res) {
-	var id = req.params.id;
-
-	db.all("SELECT * FROM authors WHERE id = " + id + ";", {}, function(err, author) {
-		fs.readFile('./views/authorPageEdit.html', 'utf8', function(err, html) {
-			console.log(author);
-			var renderedHTMLEdit = Mustache.render(html, author[0]);
-			res.send(renderedHTMLEdit);
-		}); //end of fs read
-	}); //end of db all
-}); //end of app get
-
-//deleting the authors profile
-app.delete('/authors/:id', function(req, res) {
-	var id = req.params.id;
-	db.run("DELETE FROM authors WHERE id = " + id + ";");
-	res.redirect("/authors");
-});
-
-//sending changes of the author to a database
-app.put('/authors/:id/', function(req, res) {
-	var id = req.params.id;
-	var authorInfo = req.body;
-	db.run("UPDATE authors SET username = '" + authorInfo.username + "',first_name = '" + authorInfo.first_name + "', last_name = '" + authorInfo.last_name + "', email = '" + authorInfo.email + "', profile_image = '" + authorInfo.profile_image + "' WHERE id = " + id + ";");
-	res.redirect("/authors");
-});
-
-
-///////////////////////////////////////////////////////////////////////////
-//                 ARTICLE STUFF                                        //
-/////////////////////////////////////////////////////////////////////////
-
-//reading the template from newarticle to create an article
-app.get('/articles/new', function(req, res) {
-	var template = fs.readFileSync('./views/newarticle.html', 'utf8');
-
-	//sending new authors to a dropdown menu
-	db.all("SELECT * FROM authors;", {}, function(err, authors) {
-		var html = Mustache.render(template, {
-			allAuthors: authors
-		}); //end of mustache
-		res.send(html);
-	}); //end of db all
-}); //end of app get
-
-//Create a new article
-app.post('/articles', function(req, res) {
-	var category = req.body.categories;
-	var author = req.body.authors;
-	//console.log(author);
-	db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + marked(he.encode(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
-	console.log('article info sent to database');
-	res.redirect("/articles");
-});
-
-
-//view all articles. reading a template and mustaching articles into html
-app.get('/articles', function(req, res) {
-	//var updatedArticles = [];
-	var template = fs.readFileSync('./views/articles.html', 'utf8');
-	var allAuthors = "SELECT * FROM authors;";
-	var allArticles = "SELECT * FROM articles;";
-	var authorSearch = req.query.authors;
-	// console.log(authorSearch);
-
-	var authorNameSearchedInArticles = "SELECT * FROM articles WHERE authors_id = " + authorSearch + ";";
-
-//accessing ALL articles of a particular user
-	if (authorSearch) {
-		db.all(authorNameSearchedInArticles, {}, function(err, articles) {
-			var html = Mustache.render(template, {
-				allArticles: articles
-			});
-			res.send(html);
-		}); //end of db all nested
-
-		//accessing ALL articles of ALL users
-	} else {
-		db.all(allArticles, {}, function(err, articles) {
-			var updatedArticles = [];
-			var i = 0;
-			articles.forEach(function(el) {
-				db.each("SELECT * FROM authors WHERE id = " + el.authors_id + ";", {}, function(err, author) {
-					console.log(author);
-					el.username = author.username;
-					updatedArticles.push(el);
-					i++;
-					if (i === articles.length) {
-						console.log(updatedArticles);
-						var html = Mustache.render(template, {
-							allArticles: updatedArticles
-						}); //end of Mustache
-						res.send(html);
-					} // end of if statement
-				}); //end of db each
-			}); //end of foreach
-		}); //end of db all in else
-	} //end of else
-	// END OF accessing all articles
-}); // end of app get
-
-//accessing article page to edit an article
-app.get('/articles/:id', function(req, res) {
-	var id = req.params.id;
-	db.all("SELECT * FROM articles WHERE id = " + id + ";", {}, function(err, article) {
-		fs.readFile('./views/articlePage.html', 'utf8', function(err, html) {
-
-			var renderedHTML = Mustache.render(html, article[0]);
-			console.log(article);
-			res.send(renderedHTML);
-		});
-	});
-});
-//deleting article
-app.delete('/articles/:id', function(req, res) {
-	var id = req.params.id;
-	db.run("DELETE FROM articles WHERE id =" + id + ";");
-	res.redirect("/articles");
-}); //end of app delete
-
-//sending changes to a server
-app.put('/articles/:id/', function(req, res) {
-	var id = req.params.id;
-	var articleInfo = req.body;
-	db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + marked(he.decode(articleInfo.content)) + "', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " + id + ";");
-	res.redirect("/articles");
-}); //end of app puts
-
-
-app.listen(5000, function() {
+app.listen(7000, function() {
 	console.log("LISTENING!");
 });

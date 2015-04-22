@@ -9,7 +9,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var db = new sqlite3.Database('./database.db');
-//var path = require('path');
 var marked = require('marked');
 marked.setOptions({
 	renderer: new marked.Renderer(),
@@ -21,8 +20,6 @@ marked.setOptions({
 	smartLists: true,
 	smartypants: false
 });
-//var sendgrid = require("sendgrid")(api_user, api_key);
-//var email = new sendgrid.Email();
 var app = express();
 var he = require('he');
 app.use(morgan('dev'));
@@ -46,10 +43,15 @@ var articles = {
 		}); //end of db all
 	}, //end of showNewArticleForm
 	newArticle: function(req, res) {
-		var category = req.body.categories;
-		var author = req.body.authors;
-		db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ('" + category + "','" + req.body.title + "','" + marked(he
-			.encode(req.body.content)) + "','" + req.body.date_created + "','" + req.body.image + "','" + author + "')");
+		db.run("INSERT INTO articles (category, title, content, date_created, image, authors_id) VALUES ($category, $title, $content, $date_created, $image, $authors_id)",{
+			$category: req.body.categories,
+			$title: he.encode(req.body.title),
+			$content: he.encode(req.body.content),
+			$date_created: req.body.date_created,
+			$image: req.body.image,
+			$authors_id: req.body.authors
+		});
+
 		console.log('article info sent to database');
 		res.redirect("/articles");
 	}, //end of newArticle
@@ -106,11 +108,15 @@ var articles = {
 		res.redirect("/articles");
 	}, //end of deleteArticle
 	saveArticle: function(req, res) {
-		var id = req.params.id;
-		var articleInfo = req.body;
-		db.run("UPDATE articles SET category = '" + articleInfo.category + "', title = '" + articleInfo.title + "', content = '" + marked(he.decode(articleInfo.content)) +
-			"', date_created = '" + articleInfo.date_created + "', image = '" + articleInfo.image + "', authors_id = '" + articleInfo.authors_id + "' WHERE id = " +
-			id + ";");
+		db.run("UPDATE articles SET category = $category, title = $title, content = $content, date_created = $date_created, image = $image, authors_id = $authors_id WHERE id = $id " + ";", {
+			  $id: req.params.id,
+			  $category: req.body.category,
+				$title: marked(he.decode(req.body.title)),
+				$content: marked(he.decode(req.body.content)),
+				$date_created: req.body.date_created,
+				$image: req.body.image,
+				$authors_id: req.body.authors_id
+			});
 		res.redirect("/articles");
 	}, //end of saveArticle
 

@@ -9,7 +9,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var db = new sqlite3.Database('./database.db');
-//var path = require('path');
 var marked = require('marked');
 marked.setOptions({
 	renderer: new marked.Renderer(),
@@ -21,8 +20,6 @@ marked.setOptions({
 	smartLists: true,
 	smartypants: false
 });
-//var sendgrid = require("sendgrid")(api_user, api_key);
-//var email = new sendgrid.Email();
 var app = express();
 var he = require('he');
 app.use(morgan('dev'));
